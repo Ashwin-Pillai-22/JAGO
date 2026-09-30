@@ -31,6 +31,27 @@ const suggestions = [
   { label: 'Payment information', message: 'When will I get my payment?', icon: WalletCards },
 ]
 
+const guidanceItems = [
+  {
+    title: 'Official knowledge hub',
+    description: 'Guidelines, scheme information, and official scholarship notices from the Tribal Affairs portal.',
+    link: 'https://tribal.nic.in/KnowledgeHub.aspx',
+    accent: 'portal',
+  },
+  {
+    title: 'Scheme checks',
+    description: 'Review eligibility, required documents, and scheme-specific criteria before applying or resubmitting.',
+    link: 'https://tribal.nic.in/ScholarshiP.aspx',
+    accent: 'scheme',
+  },
+  {
+    title: 'Application basics',
+    description: 'Keep your Aadhaar, domicile, caste, income, and academic records ready to avoid deficiency notices.',
+    link: 'https://tribal.nic.in/ScholarshiP.aspx',
+    accent: 'docs',
+  },
+]
+
 const intentLabels = {
   CHECK_ELIGIBILITY: 'Eligibility',
   LIST_SCHOLARSHIPS: 'Scholarships',
@@ -195,6 +216,39 @@ function Profile({ user, token }) {
   )
 }
 
+function GuidanceHub() {
+  return (
+    <section className="guidance-area" aria-label="Scholarship guidelines and knowledge hub">
+      <div className="chat-heading">
+        <div>
+          <span className="section-kicker">SCHEME KNOWLEDGE</span>
+          <h2>Guidelines & important information</h2>
+        </div>
+      </div>
+
+      <div className="guidance-grid">
+        {guidanceItems.map(({ title, description, link, accent }) => (
+          <article className={`guidance-card guidance-${accent}`} key={title}>
+            <span className="guidance-badge">Official</span>
+            <h3>{title}</h3>
+            <p>{description}</p>
+            <a href={link} rel="noreferrer" target="_blank">
+              Open official page
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <div className="guidance-note">
+        <BookOpenText size={18} />
+        <p>
+          Use this section to check scheme guidance, eligibility points, document requirements, and official updates before submitting or correcting an application.
+        </p>
+      </div>
+    </section>
+  )
+}
+
 function Dashboard({ user, token, onLogout }) {
   const studentId = String(user.id)
   const [view, setView] = useState('chat')
@@ -309,6 +363,10 @@ function Dashboard({ user, token, onLogout }) {
           <BookOpenText size={17} />
           <span>Scholarship assistant</span>
         </button>
+        <button className={`nav-item${view === 'guidelines' ? ' nav-item-active' : ''}`} onClick={() => setView('guidelines')} type="button">
+          <CircleHelp size={17} />
+          <span>Guidelines</span>
+        </button>
         <button className={`nav-item${view === 'profile' ? ' nav-item-active' : ''}`} onClick={() => setView('profile')} type="button">
           <UserRound size={17} />
           <span>My profile</span>
@@ -324,7 +382,7 @@ function Dashboard({ user, token, onLogout }) {
         <header className="topbar">
           <div className="page-title">
             <span className="eyebrow">ST SCHOLARSHIP SUPPORT</span>
-            <h1>{view === 'chat' ? 'Scholarship assistant' : view === 'scholarships' ? 'Scholarships' : 'My profile'}</h1>
+            <h1>{view === 'chat' ? 'Scholarship assistant' : view === 'scholarships' ? 'Scholarships' : view === 'guidelines' ? 'Guidelines & knowledge' : 'My profile'}</h1>
           </div>
           <div className="topbar-tools">
             <div className={`connection-status connection-${connection}`}>
@@ -339,7 +397,7 @@ function Dashboard({ user, token, onLogout }) {
           </div>
         </header>
 
-        {view === 'scholarships' ? <ScholarshipList /> : view === 'profile' ? <Profile user={user} token={token} /> : (
+        {view === 'scholarships' ? <ScholarshipList /> : view === 'profile' ? <Profile user={user} token={token} /> : view === 'guidelines' ? <GuidanceHub /> : (
         <section className="chat-area" aria-label="Scholarship chat">
           <div className="chat-heading">
             <div>

@@ -1089,6 +1089,25 @@
 .scholarship-icon { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: #e7efdb; color: #315b43; }
 .scholarship-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .scholarship-tags span { padding: 3px 8px; border-radius: 99px; background: #edf2ed; color: #486052; font-size: 10px; }
+.scholarship-actions { margin-top: 14px; }
+.portal-link { display: inline-flex; align-items: center; justify-content: center; padding: 8px 12px; border-radius: 6px; background: #275c49; color: #fff; font-size: 11px; font-weight: 600; text-decoration: none; }
+.portal-link:hover { background: #193f32; }
+.portal-link-disabled { background: #ecf1ee; color: #64776b; cursor: default; }
+
+.guidance-area { width: min(100%, 1000px); box-sizing: border-box; flex: 1; align-self: center; display: flex; flex-direction: column; padding: 37px 52px 28px; animation: rise-in 450ms ease-out both; }
+.guidance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 18px; }
+.guidance-card { padding: 20px; border: 1px solid #e0e7e1; border-radius: 12px; background: #fbfcfa; box-shadow: 0 8px 24px rgb(24 54 43 / 4%); }
+.guidance-card h3 { margin: 14px 0 8px; font-family: Georgia, 'Times New Roman', serif; font-size: 21px; color: #1a342c; }
+.guidance-card p { margin: 0 0 16px; color: #52665a; font-size: 12px; line-height: 1.7; }
+.guidance-card a { display: inline-flex; align-items: center; justify-content: center; padding: 9px 12px; border-radius: 6px; text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; color: #fff; background: #275c49; }
+.guidance-card a:hover { background: #193f32; }
+.guidance-badge { display: inline-flex; padding: 4px 8px; border-radius: 99px; background: #edf2ed; color: #486052; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.guidance-portal { border-color: #d7e8d2; }
+.guidance-scheme { border-color: #e7dcc8; }
+.guidance-docs { border-color: #dfe8ef; }
+.guidance-note { display: flex; align-items: flex-start; gap: 12px; margin-top: 18px; padding: 16px 18px; border-radius: 10px; background: #edf4ef; border: 1px solid #dce8dc; color: #365346; }
+.guidance-note p { margin: 0; font-size: 12px; line-height: 1.7; }
+.guidance-note svg { color: #275c49; margin-top: 2px; }
 
 @media (max-width: 800px) {
   .auth-shell { grid-template-columns: 1fr; }

@@ -1,7 +1,7 @@
-name,scheme,category,max_income,education_level,description
-Pre-Matric Scholarship,Pre-Matric Scholarship,ST,,,
-Post-Matric Scholarship,Post-Matric Scholarship,ST,,,
-Top Class Scholarship,Top Class Scholarship,ST,,,
-National Scholarship,National Scholarship,ST,,,
-National Fellowship (NFST),National Fellowship (NFST),ST,,,
-National Overseas Scholarship (NOS),National Overseas Scholarship (NOS),ST,,,
+name,scheme,category,max_income,education_level,description,application_url
+Pre-Matric Scholarship,Pre-Matric Scholarship,ST,,,Official pre-matric support for Scheduled Tribe students.,https://tribal.nic.in/ScholarshiP.aspx
+Post-Matric Scholarship,Post-Matric Scholarship,ST,,,Support for ST students pursuing education beyond matriculation.,https://tribal.nic.in/ScholarshiP.aspx
+Top Class Scholarship,Top Class Scholarship,ST,,,Scholarship assistance for high-performing students in professional courses.,https://tribal.nic.in/ScholarshiP.aspx
+National Scholarship,National Scholarship,ST,,,National scholarship support for eligible students.,https://tribal.nic.in/ScholarshiP.aspx
+National Fellowship (NFST),National Fellowship (NFST),ST,,,Fellowship support for students from notified tribal communities.,https://tribal.nic.in/ScholarshiP.aspx
+National Overseas Scholarship (NOS),National Overseas Scholarship (NOS),ST,,,Support for higher studies abroad for eligible students.,https://tribal.nic.in/ScholarshiP.aspx

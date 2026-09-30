@@ -25,6 +25,20 @@ export function ScholarshipList() {
               {item.education_level && <span>{item.education_level}</span>}
               {item.max_income != null && <span>Income up to ₹{item.max_income.toLocaleString('en-IN')}</span>}
             </div>
+            <div className="scholarship-actions">
+              {item.application_url ? (
+                <a
+                  className="portal-link"
+                  href={item.application_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open official portal
+                </a>
+              ) : (
+                <span className="portal-link portal-link-disabled">Portal link unavailable</span>
+              )}
+            </div>
           </article>
         ))}
       </div>

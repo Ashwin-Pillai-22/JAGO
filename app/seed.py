@@ -20,24 +20,30 @@ def seed_database():
     try:
         scholarships = pd.read_csv(DATA_DIRECTORY / "scholarships.csv")
         existing_scholarships = {
-            (item.name, item.scheme) for item in db.query(Scholarship).all()
+            (item.name, item.scheme): item for item in db.query(Scholarship).all()
         }
         for row in scholarships.to_dict(orient="records"):
             identity = (row["name"], row["scheme"])
-            if identity in existing_scholarships:
-                continue
-
-            db.add(
-                Scholarship(
+            scholarship = existing_scholarships.get(identity)
+            if scholarship is None:
+                scholarship = Scholarship(
                     name=row["name"],
                     scheme=row["scheme"],
-                    category=optional_value(row["category"]),
-                    max_income=optional_value(row["max_income"]),
-                    education_level=optional_value(row["education_level"]),
-                    description=optional_value(row["description"]),
+                    category=optional_value(row.get("category")),
+                    max_income=optional_value(row.get("max_income")),
+                    education_level=optional_value(row.get("education_level")),
+                    description=optional_value(row.get("description")),
+                    application_url=optional_value(row.get("application_url")),
                 )
-            )
-            existing_scholarships.add(identity)
+                db.add(scholarship)
+            else:
+                scholarship.category = optional_value(row.get("category"))
+                scholarship.max_income = optional_value(row.get("max_income"))
+                scholarship.education_level = optional_value(row.get("education_level"))
+                scholarship.description = optional_value(row.get("description"))
+                scholarship.application_url = optional_value(row.get("application_url"))
+
+            existing_scholarships[identity] = scholarship
 
         statistics = pd.read_csv(DATA_DIRECTORY / "mota_annexure_ii_scholarship_data.csv")
         existing_statistics = {

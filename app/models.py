@@ -26,6 +26,7 @@ class Scholarship(Base):
     max_income: Mapped[float | None] = mapped_column(Float, nullable=True)
     education_level: Mapped[str | None] = mapped_column(String(100), nullable=True)
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
+    application_url: Mapped[str | None] = mapped_column(Text, nullable=True)
 
 
 class ScholarshipStatistics(Base):

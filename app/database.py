@@ -50,3 +50,8 @@ def initialize_database():
                 connection.exec_driver_sql(f"ALTER TABLE {table_name} RENAME TO {legacy_name}")
 
     Base.metadata.create_all(bind=engine)
+
+    with engine.begin() as connection:
+        scholarships_columns = {column["name"] for column in inspect(engine).get_columns("scholarships")}
+        if "application_url" not in scholarships_columns:
+            connection.exec_driver_sql("ALTER TABLE scholarships ADD COLUMN application_url TEXT")

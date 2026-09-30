@@ -4,8 +4,8 @@ from . import models
 
 
 UNKNOWN_RESPONSE = (
-    "I can help with scholarship eligibility, scholarships, documents, "
-    "application status, payments and statistics."
+    "I can help with scholarship eligibility, scholarships, deficiency checks, "
+    "documents, application status, disbursement, and statistics."
 )
 SUPPORTED_DOCUMENT_TYPES = ("caste", "income", "domicile")
 
@@ -15,6 +15,15 @@ def detect_intent(message: str) -> str:
 
     intent_keywords = (
         (
+            "DEFICIENCY",
+            (
+                "deficiency", "deficient", "missing document", "missing details",
+                "upload again", "correction", "incorrect details", "document missing",
+                "requirement not met", "shortfall", "आवश्यक दस्तावेज़ नहीं", "दस्तावेज़ कम है",
+                "कमी", "त्रुटि", "गलत जानकारी", "अपूर्ण आवेदन",
+            ),
+        ),
+        (
             "STATISTICS",
             ("beneficiar", "statistics", "stats", "लाभार्थी", "आंकड़े", "आँकड़े"),
         ),
@@ -22,7 +31,7 @@ def detect_intent(message: str) -> str:
             "DISBURSEMENT",
             (
                 "payment", "pay", "disbursement", "भुगतान", "पैसा", "पैसे",
-                "किस्त", "कब मिलेगा", "कब आएगा",
+                "किस्त", "कब मिलेगा", "कब आएगा", "release", "sanction",
             ),
         ),
         (
@@ -138,8 +147,28 @@ def create_chat_response(student: models.Student, message: str, db: Session) -> 
             )
     elif intent == "APPLICATION_STATUS":
         response = "JAGO में आवेदन की स्थिति का डेटा उपलब्ध नहीं है।" if hindi else "Application status data is not available in JAGO."
+    elif intent == "DEFICIENCY":
+        if hindi:
+            response = (
+                "एक कमी का मतलब है कि आपके आवेदन में आवश्यक दस्तावेज़, जानकारी या सत्यापन अभी अधूरा है. "
+                "कृपया अपलोड की गई फाइलों की समीक्षा करें, आवश्यक दस्तावेज़ जोड़ें और आवेदन फिर से सबमिट करें."
+            )
+        else:
+            response = (
+                "A deficiency means your application is missing a required document, detail, or verification. "
+                "Please review the uploaded files, add the missing requirement, and resubmit the application."
+            )
     elif intent == "DISBURSEMENT":
-        response = "JAGO में भुगतान या वितरण की जानकारी उपलब्ध नहीं है।" if hindi else "Payment and disbursement data is not available in JAGO."
+        if hindi:
+            response = (
+                "छात्रवृत्ति का भुगतान आमतौर पर पात्रता सत्यापन, दस्तावेज़ पुष्टि और अनुमोदन के बाद किया जाता है. "
+                "यदि आपके आवेदन में कोई कमी नहीं है, तो भुगतान की स्थिति की जांच के लिए विभागीय पोर्टल या अधिकारिक सूचना देखें."
+            )
+        else:
+            response = (
+                "Scholarship disbursement is usually released after eligibility verification, document confirmation, and approval. "
+                "If there is no deficiency in the application, check the official portal for the latest sanction or payment status."
+            )
     elif intent == "STATISTICS":
         statistics = (
             db.query(models.ScholarshipStatistics)

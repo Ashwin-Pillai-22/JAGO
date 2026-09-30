@@ -14,6 +14,7 @@ class ChatResponse(BaseModel):
         "LIST_SCHOLARSHIPS",
         "REQUIRED_DOCUMENTS",
         "APPLICATION_STATUS",
+        "DEFICIENCY",
         "DISBURSEMENT",
         "STATISTICS",
         "UNKNOWN",
@@ -43,6 +44,7 @@ class ScholarshipResponse(BaseModel):
     max_income: float | None = None
     education_level: str | None = None
     description: str | None = None
+    application_url: str | None = None
     id: int
 
     model_config = ConfigDict(from_attributes=True)
